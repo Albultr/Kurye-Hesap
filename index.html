@@ -110,7 +110,6 @@ function renderHome(){
   document.getElementById('todayCount').textContent=`${items.length} fiş kaydedildi`;
   document.getElementById('methodChoices').innerHTML=METHODS.map(method=>`<button class="method ${state.defaultMethod===method?'selected':''}" data-default="${safe(method)}">${safe(method)} ${state.defaultMethod===method?'✓':''}<small>${state.defaultMethod===method?'Şu an seçili':'Varsayılan olarak seç'}</small></button>`).join('');
   document.querySelectorAll('[data-default]').forEach(button=>button.addEventListener('click',()=>{state.defaultMethod=button.dataset.default;saveState();}));
-  const recent=[...state.receipts].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')).slice(0,5);
    const allReceipts=[...state.receipts].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
 const recent=receiptsExpanded?allReceipts:allReceipts.slice(0,5);
 document.getElementById('recentReceipts').innerHTML=recent.length?recent.map(receiptMarkup).join(''):'<div class="empty">Henüz fiş eklemedin.</div>';
