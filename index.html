@@ -243,7 +243,10 @@ document.getElementById('saveButton').onclick=()=>{
   if(!date){alert('Lütfen işlem tarihini seç.');return;}
   const item={id:editingId||((crypto.randomUUID&&crypto.randomUUID())||String(Date.now())),amount:Math.round(amount*100)/100,method:document.getElementById('method').value,date,note:document.getElementById('receiptNote').value.trim(),createdAt:editingId?(state.receipts.find(r=>r.id===editingId)?.createdAt||new Date().toISOString()):new Date().toISOString(),source:editingId?(state.receipts.find(r=>r.id===editingId)?.source||'manual'):(document.getElementById('formHeading').textContent.includes('kontrol')?'photo':'manual')};
   if(editingId)state.receipts=state.receipts.map(r=>r.id===editingId?item:r);else state.receipts.push(item);
-  resetPhoto();saveState();showView('homeView');
+  resetPhoto();
+saveState();
+editingId=null;
+document.getElementById('formView').classList.add('hidden');
 };
 document.getElementById('deleteEditing').onclick=()=>{if(editingId)removeReceipt(editingId);resetPhoto();showView('homeView');};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showView(b.dataset.view));
