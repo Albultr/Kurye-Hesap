@@ -447,6 +447,24 @@ document.getElementById('toggleReceipts').onclick=()=>{
   receiptsExpanded=!receiptsExpanded;
   renderHome();
 };
+  document.getElementById('resetDayButton').onclick=()=>{
+  const todaysCount=state.receipts.filter(r=>r.date===todayISO()).length;
+
+  if(todaysCount===0){
+    alert('Bugüne ait silinecek fiş bulunamadı.');
+    return;
+  }
+
+  if(!confirm(`Bugüne ait ${todaysCount} fişin tamamı silinecek. Bu işlem geri alınamaz. Devam edilsin mi?`))return;
+
+  state.receipts=state.receipts.filter(r=>r.date!==todayISO());
+  receiptsExpanded=false;
+  calcInput='';
+  updateCalculator();
+  saveState();
+
+  alert('Bugünkü fişler sıfırlandı.');
+};
 document.getElementById('historyDate').onchange=renderHistory;
 document.getElementById('clearHistoryFilter').onclick=()=>{document.getElementById('historyDate').value='';renderHistory();};
 document.getElementById('reportMonth').value=todayISO().slice(0,7);
