@@ -253,7 +253,7 @@ toggle.classList.toggle('hidden',allReceipts.length<=3);
   bindReceiptActions();
 }
 function receiptMarkup(r){
-  return `<div class="receipt"><div><div class="receipt-title">${money(r.amount)}</div><div class="receipt-meta">${safe(r.method)} · ${niceDate(r.date)}${r.note?' · '+safe(r.note):''}${r.source==='photo'?' · Fotoğraf':''}</div></div><div class="receipt-right"><div class="receipt-amount">${money(r.amount)}</div><div class="mini-actions"><button class="mini" data-edit="${safe(r.id)}">Düzenle</button><button class="mini delete" data-remove="${safe(r.id)}">Sil</button></div></div></div>`;
+  return `<div class="receipt"><div><div class="receipt-title">${money(r.amount)}</div><div class="receipt-meta">${safe(r.method)} · ${niceDate(r.date)}${r.createdAt?' · '+new Date(r.createdAt).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):''}${r.note?' · '+safe(r.note):''}${r.source==='photo'?' · Fotoğraf':''}</div></div><div class="receipt-right"><div class="receipt-amount">${money(r.amount)}</div><div class="mini-actions"><button class="mini" data-edit="${safe(r.id)}">Düzenle</button><button class="mini delete" data-remove="${safe(r.id)}">Sil</button></div></div></div>`;
 }
 function bindReceiptActions(){
   document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editReceipt(b.dataset.edit));
