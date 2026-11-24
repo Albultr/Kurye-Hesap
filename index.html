@@ -217,8 +217,8 @@ let state=readState();
 let editingId=null;
 let currentPhotoUrl='';
 let receiptsExpanded=false;
+let calcInput='';
 function readState(){
-  let calcInput='';
   try{
     const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
     if(saved&&Array.isArray(saved.receipts))return {receipts:saved.receipts,defaultMethod:METHODS.includes(saved.defaultMethod)?saved.defaultMethod:'Nakit'};
