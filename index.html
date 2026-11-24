@@ -249,7 +249,7 @@ document.getElementById('recentReceipts').innerHTML=recent.length?recent.map(rec
 const toggle=document.getElementById('toggleReceipts');
 toggle.textContent=receiptsExpanded?'⌃ Daha az göster':'⌄ Tümünü göster';
 toggle.setAttribute('aria-expanded',String(receiptsExpanded));
-toggle.classList.toggle('hidden',allReceipts.length<=5);
+toggle.classList.toggle('hidden',allReceipts.length<=3);
   bindReceiptActions();
 }
 function receiptMarkup(r){
