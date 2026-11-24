@@ -248,7 +248,12 @@ saveState();
 editingId=null;
 document.getElementById('formView').classList.add('hidden');
 };
-document.getElementById('deleteEditing').onclick=()=>{if(editingId)removeReceipt(editingId);resetPhoto();showView('homeView');};
+document.getElementById('deleteEditing').onclick=()=>{
+  if(editingId)removeReceipt(editingId);
+  resetPhoto();
+  editingId=null;
+  document.getElementById('formView').classList.add('hidden');
+};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showView(b.dataset.view));
 document.getElementById('showAll').onclick=()=>showView('historyView');
 document.getElementById('historyDate').onchange=renderHistory;
