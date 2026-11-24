@@ -26,6 +26,11 @@
 </header>
 <main class="content">
   <section class="view active" id="homeView">
+    <div class="section-head">
+  <h2>Son fişler</h2>
+  <button class="small-btn" id="toggleReceipts" aria-expanded="false">⌄ Tümünü göster</button>
+</div>
+<div class="panel" id="recentReceipts"></div>
     <div class="section-head"><h2>Varsayılan ödeme yöntemi</h2><span class="pill">Otomatik hatırlanır</span></div>
     <div class="panel">
       <div class="muted">Bir kez seç. Sen değiştirmediğin sürece yeni fişlerde bu yöntem kullanılsın.</div>
@@ -49,8 +54,7 @@
       <div class="form-actions"><button class="submit outline hidden" id="deleteEditing">Fişi sil</button><button class="submit" id="saveButton">Fişi kaydet</button></div>
     </div>
    </section>
-    <div class="section-head"><h2>Son işlemler</h2><button class="small-btn" id="showAll">Tümünü gör →</button></div>
-    <div class="panel" id="recentReceipts"></div>
+    
   </section>
 
   <section class="view" id="historyView">
@@ -83,6 +87,7 @@ const METHODS=['Nakit','Yemek kartı','Kredi kartı','Banka / IBAN'];
 let state=readState();
 let editingId=null;
 let currentPhotoUrl='';
+let receiptsExpanded=false;
 function readState(){
   try{
     const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -103,11 +108,16 @@ function renderHome(){
   document.getElementById('todayLabel').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   document.getElementById('todayTotal').textContent=money(sum(items));
   document.getElementById('todayCount').textContent=`${items.length} fiş kaydedildi`;
-  document.getElementById('summary').innerHTML=METHODS.map(method=>`<div class="stat"><small>${method}</small><strong>${money(sum(items.filter(r=>r.method===method)))}</strong></div>`).join('');
   document.getElementById('methodChoices').innerHTML=METHODS.map(method=>`<button class="method ${state.defaultMethod===method?'selected':''}" data-default="${safe(method)}">${safe(method)} ${state.defaultMethod===method?'✓':''}<small>${state.defaultMethod===method?'Şu an seçili':'Varsayılan olarak seç'}</small></button>`).join('');
   document.querySelectorAll('[data-default]').forEach(button=>button.addEventListener('click',()=>{state.defaultMethod=button.dataset.default;saveState();}));
   const recent=[...state.receipts].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')).slice(0,5);
-  document.getElementById('recentReceipts').innerHTML=recent.length?recent.map(receiptMarkup).join(''):'<div class="empty">Henüz fiş eklemedin. İlk fişini ekleyerek başlayabilirsin.</div>';
+   const allReceipts=[...state.receipts].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+const recent=receiptsExpanded?allReceipts:allReceipts.slice(0,5);
+document.getElementById('recentReceipts').innerHTML=recent.length?recent.map(receiptMarkup).join(''):'<div class="empty">Henüz fiş eklemedin.</div>';
+const toggle=document.getElementById('toggleReceipts');
+toggle.textContent=receiptsExpanded?'⌃ Daha az göster':'⌄ Tümünü göster';
+toggle.setAttribute('aria-expanded',String(receiptsExpanded));
+toggle.classList.toggle('hidden',allReceipts.length<=5);
   bindReceiptActions();
 }
 function receiptMarkup(r){
@@ -259,7 +269,10 @@ document.getElementById('deleteEditing').onclick=()=>{
   document.getElementById('formView').classList.add('hidden');
 };
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showView(b.dataset.view));
-document.getElementById('showAll').onclick=()=>showView('historyView');
+document.getElementById('toggleReceipts').onclick=()=>{
+  receiptsExpanded=!receiptsExpanded;
+  renderHome();
+};
 document.getElementById('historyDate').onchange=renderHistory;
 document.getElementById('clearHistoryFilter').onclick=()=>{document.getElementById('historyDate').value='';renderHistory();};
 document.getElementById('reportMonth').value=todayISO().slice(0,7);
