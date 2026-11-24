@@ -130,7 +130,7 @@ function openForm(amount='',source='manual'){
   document.getElementById('receiptPhoto').classList.toggle('hidden',!currentPhotoUrl);
   document.getElementById('saveButton').textContent='Fişi kaydet';
   document.getElementById('deleteEditing').classList.add('hidden');
-  showView('formView');
+  document.getElementById('formView').classList.remove('hidden');
 }
 function editReceipt(id){
   const r=state.receipts.find(x=>x.id===id);if(!r)return;
@@ -144,7 +144,8 @@ function editReceipt(id){
   document.getElementById('receiptPhoto').classList.add('hidden');
   document.getElementById('saveButton').textContent='Değişiklikleri kaydet';
   document.getElementById('deleteEditing').classList.remove('hidden');
-  showView('formView');
+  showView('homeView');
+document.getElementById('formView').classList.remove('hidden');
 }
 function removeReceipt(id){
   if(!confirm('Bu fişi kalıcı olarak silmek istiyor musun?'))return;
@@ -164,7 +165,11 @@ function renderMonthly(){
 }
 function resetPhoto(){if(currentPhotoUrl){URL.revokeObjectURL(currentPhotoUrl);currentPhotoUrl='';}document.getElementById('receiptPhoto').removeAttribute('src');}
 document.getElementById('manualButton').onclick=()=>{resetPhoto();openForm();};
-document.getElementById('cancelForm').onclick=()=>{resetPhoto();showView('homeView');};
+document.getElementById('cancelForm').onclick=()=>{
+  resetPhoto();
+  editingId=null;
+  document.getElementById('formView').classList.add('hidden');
+};
 document.getElementById('cameraButton').onclick=()=>document.getElementById('cameraInput').click();
 document.getElementById('cameraInput').onchange=async event=>{
   const file=event.target.files&&event.target.files[0];if(!file)return;
