@@ -178,7 +178,6 @@ document.getElementById('cameraInput').onchange=async event=>{
     if(!window.Tesseract)throw new Error('OCR kütüphanesi yüklenemedi. İnternet bağlantını kontrol et veya tutarı elle gir.');
     const result=await Tesseract.recognize(file,'tur+eng',{logger:m=>{if(m.status==='recognizing text')document.getElementById('ocrStatus').textContent=`Fiş okunuyor: %${Math.round((m.progress||0)*100)}`}});
     const text=result.data.text||'';
-        const text=result.data.text||'';
     const lines=text.split(/\r?\n/).map(line=>line.replace(/\s+/g,' ').trim()).filter(Boolean);
     const moneyPattern=/(?:\d{1,3}(?:[.\s]\d{3})+|\d+)[,.]\d{2}/g;
     const parseMoney=value=>{
