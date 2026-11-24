@@ -415,6 +415,29 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showView(b.dataset.vi
     updateCalculator();
   };
 });
+  document.getElementById('quickSaveButton').onclick=()=>{
+  const amount=Number(calcInput.replace(',','.'));
+
+  if(!Number.isFinite(amount)||amount<=0){
+    alert('Lütfen geçerli bir tutar gir.');
+    return;
+  }
+
+  const item={
+    id:(crypto.randomUUID&&crypto.randomUUID())||String(Date.now()),
+    amount:Math.round(amount*100)/100,
+    method:state.defaultMethod,
+    date:todayISO(),
+    note:'',
+    createdAt:new Date().toISOString(),
+    source:'manual'
+  };
+
+  state.receipts.push(item);
+  calcInput='';
+  updateCalculator();
+  saveState();
+};
 document.getElementById('toggleReceipts').onclick=()=>{
   receiptsExpanded=!receiptsExpanded;
   renderHome();
