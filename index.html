@@ -33,11 +33,7 @@
       <button class="action secondary" id="cameraButton">▧ Fiş fotoğrafı okut</button>
     </div>
     <div class="notice">Fotoğraftan okunan tutar otomatik kaydedilmez. Önce kontrol edip onaylayacaksın. OCR ile okuma için ilk kullanımda internet bağlantısı gerekir.</div>
-    <div class="section-head"><h2>Son işlemler</h2><button class="small-btn" id="showAll">Tümünü gör →</button></div>
-    <div class="panel" id="recentReceipts"></div>
-  </section>
-
-  <section class="view" id="formView">
+   <section id="formView" class="hidden">
     <div class="section-head"><h2 id="formHeading">Yeni fiş</h2><button class="small-btn" id="cancelForm">Vazgeç</button></div>
     <div class="panel">
       <div id="ocrStatus" class="muted"></div>
@@ -48,6 +44,9 @@
       <div class="field"><label for="receiptNote">Not / fiş açıklaması (isteğe bağlı)</label><input id="receiptNote" maxlength="100" placeholder="Örn. Sipariş numarası"></div>
       <div class="form-actions"><button class="submit outline hidden" id="deleteEditing">Fişi sil</button><button class="submit" id="saveButton">Fişi kaydet</button></div>
     </div>
+   </section>
+    <div class="section-head"><h2>Son işlemler</h2><button class="small-btn" id="showAll">Tümünü gör →</button></div>
+    <div class="panel" id="recentReceipts"></div>
   </section>
 
   <section class="view" id="historyView">
