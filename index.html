@@ -294,7 +294,7 @@ function todayItems(){return state.receipts.filter(r=>r.date===todayISO());}
 
   document.getElementById('eveningResult').textContent=money(totalSales-deductions);
   }
-function renderAll(){renderHome();renderHistory();renderMonthly();}
+function renderAll(){renderHome();renderHistory();renderMonthly();updateEvening();}
 function renderHome(){
   const items=todayItems();
   document.getElementById('todayLabel').textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
