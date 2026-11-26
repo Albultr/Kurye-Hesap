@@ -274,6 +274,26 @@ function sum(list){return list.reduce((acc,item)=>acc+Number(item.amount||0),0);
 function safe(text){return String(text??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function niceDate(iso){if(!iso)return '';const [y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('tr-TR',{day:'numeric',month:'short',year:'numeric'});}
 function todayItems(){return state.receipts.filter(r=>r.date===todayISO());}
+  function updateEvening(){
+  const items=todayItems();
+  const methods=[
+    ['Nakit','eveningTotalNakit'],
+    ['Yemek kartı','eveningTotalYemek'],
+    ['Kredi kartı','eveningTotalKredi'],
+    ['Online Satış','eveningTotalOnline']
+  ];
+
+  methods.forEach(([method,id])=>{
+    const total=sum(items.filter(r=>r.method===method));
+    document.getElementById(id).textContent=money(total);
+  });
+
+  const totalSales=sum(items);
+  const deductions=['eveningNakit','eveningYemek','eveningKredi','eveningOnline']
+    .reduce((total,id)=>total+(Number(document.getElementById(id).value)||0),0);
+
+  document.getElementById('eveningResult').textContent=money(totalSales-deductions);
+  }
 function renderAll(){renderHome();renderHistory();renderMonthly();}
 function renderHome(){
   const items=todayItems();
