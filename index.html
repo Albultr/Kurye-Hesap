@@ -204,6 +204,35 @@
     <button class="submit" id="exportButton">Kayıtları CSV olarak dışa aktar</button>
     <div class="note">Kayıtların bu cihazın tarayıcısında saklanır. Tarayıcı verilerini temizlersen kayıtlar silinebilir; düzenli olarak CSV dışa aktarmanı öneririz.</div>
   </section>
+  <section class="view" id="eveningView">
+  <div class="section-head"><h2>Akşam Hesabı</h2></div>
+  <div class="panel">
+    <div class="field">
+      <label>Üzerimdeki nakit (saydığım para)</label>
+      <input type="number" id="eveningCash" inputmode="decimal" placeholder="0,00">
+    </div>
+    <div class="field">
+      <label>Nakit fiş</label>
+      <input type="number" id="eveningNakit" inputmode="decimal" placeholder="0,00">
+    </div>
+    <div class="field">
+      <label>Yemek kartı</label>
+      <input type="number" id="eveningYemek" inputmode="decimal" placeholder="0,00">
+    </div>
+    <div class="field">
+      <label>Kredi kartı</label>
+      <input type="number" id="eveningKredi" inputmode="decimal" placeholder="0,00">
+    </div>
+    <div class="field">
+      <label>Online satış</label>
+      <input type="number" id="eveningOnline" inputmode="decimal" placeholder="0,00">
+    </div>
+    <div class="panel">
+      <div class="muted">Hesap sonucu</div>
+      <div id="eveningResult" class="report-total">₺0,00</div>
+    </div>
+  </div>
+  </section>
 </main>
 <nav class="tabs"><div class="tab-inner">
   <button class="tab active" data-view="homeView">⌂ Ana sayfa</button>
