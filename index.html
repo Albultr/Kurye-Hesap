@@ -530,6 +530,19 @@ document.getElementById('exportButton').onclick=()=>{
   a.href=url;a.download='kurye-hesap-kayitlari.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 document.getElementById('method').innerHTML=METHODS.map(m=>`<option>${m}</option>`).join('');
+  const eveningFields=['eveningNakit','eveningYemek','eveningKredi','eveningOnline'];
+
+eveningFields.forEach(id=>{
+  const input=document.getElementById(id);
+  input.value=state.eveningDeductions?.[id]??'';
+
+  input.addEventListener('input',()=>{
+    state.eveningDeductions=state.eveningDeductions||{};
+    state.eveningDeductions[id]=input.value;
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+    updateEvening();
+  });
+});
 renderAll();
 </script>
 </body>
