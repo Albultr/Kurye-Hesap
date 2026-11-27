@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+i<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -302,7 +302,7 @@ function renderHome(){
   document.getElementById('todayCount').textContent=`${items.length} fiş kaydedildi`;
   document.getElementById('methodChoices').innerHTML=METHODS.map(method=>`<button class="method ${state.defaultMethod===method?'selected':''}" data-default="${safe(method)}">${safe(method)} ${state.defaultMethod===method?'✓':''}<small>${state.defaultMethod===method?'Şu an seçili':'Varsayılan olarak seç'}</small></button>`).join('');
   document.querySelectorAll('[data-default]').forEach(button=>button.addEventListener('click',()=>{state.defaultMethod=button.dataset.default;saveState();}));
-   const allReceipts=[...state.receipts].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+const allReceipts=[...todayItems()].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
 const recent=receiptsExpanded?allReceipts:allReceipts.slice(0,3);
 document.getElementById('recentReceipts').innerHTML=recent.length?recent.map(receiptMarkup).join(''):'<div class="empty">Henüz fiş eklemedin.</div>';
 const toggle=document.getElementById('toggleReceipts');
