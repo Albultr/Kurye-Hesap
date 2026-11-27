@@ -195,15 +195,7 @@ i<!DOCTYPE html>
     <div class="panel"><div class="field"><label for="historyDate">Tarihe göre filtrele</label><input type="date" id="historyDate"></div><button class="small-btn" id="clearHistoryFilter">Filtreyi temizle</button><div id="historyReceipts"></div></div>
   </section>
 
-  <section class="view" id="reportView">
-    <div class="section-head"><h2>Günlük ve aylık rapor</h2></div>
-    <div class="panel">
-      <div class="field"><label for="reportMonth">Ay seç</label><input type="month" id="reportMonth"></div>
-      <div id="monthlyReport"></div>
-    </div>
-    <button class="submit" id="exportButton">Kayıtları CSV olarak dışa aktar</button>
-    <div class="note">Kayıtların bu cihazın tarayıcısında saklanır. Tarayıcı verilerini temizlersen kayıtlar silinebilir; düzenli olarak CSV dışa aktarmanı öneririz.</div>
-  </section>
+  
   <section class="view" id="eveningView">
   <div class="panel">
   <h3>Bugünkü satışlar</h3>
@@ -237,6 +229,17 @@ i<!DOCTYPE html>
   <div class="muted">Toplam satıştan düşüldükten sonra kalan</div>
   <div id="eveningResult" class="report-total">₺0,00</div>
 </div>
+    <div class="section-head">
+  <h2>Aylık rapor</h2>
+</div>
+<div class="panel">
+  <div class="field">
+    <label for="reportMonth">Ay seç</label>
+    <input type="month" id="reportMonth">
+  </div>
+  <div id="monthlyReport"></div>
+</div>
+<button class="submit" id="exportButton">Dışa aktar</button>
   </section>
 </main>
 <nav class="tabs"><div class="tab-inner">
